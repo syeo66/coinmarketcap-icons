@@ -84,16 +84,18 @@ https
                           `${iconDestination}${CMCresult[i][chosenName]}.png`
                         );
                       }
-                      stream.write(chunks, "binary");
-                      stream.on("finish", () => {
-                        resolve(
-                          `${iconDestination}${CMCresult[i].slug}.png saved succesfully :)`
-                        );
-                        console.log(
-                          `Saved ${CMCresult[i][chosenName]}.png in ${iconDestination}`
-                        );
-                      });
-                      response.pipe(stream);
+                      try {
+                        stream.write(chunks, "binary");
+                        stream.on("finish", () => {
+                          resolve(
+                            `${iconDestination}${CMCresult[i].slug}.png saved succesfully :)`
+                          );
+                          console.log(
+                            `Saved ${CMCresult[i][chosenName]}.png in ${iconDestination}`
+                          );
+                        });
+                        response.pipe(stream);
+                      } catch {}
                     });
                 })
                 .on("error", (err) => {
